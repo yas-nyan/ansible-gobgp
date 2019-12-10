@@ -1,0 +1,12 @@
+[global.config]
+  as = {{AS_NUMBER}}
+  router-id = "{{ROUTER_ID}}"
+
+
+{% for PEER in PEERS %}
+[[neighbors]]
+  [neighbors.config]
+    neighbor-address = "{{PEER.ADDRESS}}"
+    peer-as = {{PEER.AS_NUMBER}}
+    local-as = {{AS_NUMBER}}
+{% endfor %}
