@@ -1,7 +1,7 @@
 ---
 - name: install needed development packages
   apt:
-    name: "{{item}}"
+    name: "{{ item }}"
     update_cache: yes
     cache_valid_time: 3600
   loop:
@@ -11,7 +11,7 @@
 - name: fetch GoBGP binary file
   get_url:
     url: "https://github.com/osrg/gobgp/releases/download/v{{ GOBGP_VERSION }}/gobgp_{{ GOBGP_VERSION }}_linux_amd64.tar.gz"
-    dest: "/tmp/gobgp_v{{GOBGP_VERSION}}.tar"
+    dest: "/tmp/gobgp_v{{ GOBGP_VERSION }}.tar"
 
 - name: mkdir tmp dir
   file:
@@ -20,7 +20,7 @@
 
 - name: unarchive
   unarchive:
-    src: "/tmp/gobgp_v{{GOBGP_VERSION}}.tar"
+    src: "/tmp/gobgp_v{{ GOBGP_VERSION }}.tar"
     dest: /tmp/gobgp/
     remote_src: yes
 
@@ -61,7 +61,7 @@
 
 - name: create directory for execute.
   file:
-    path: "{{item}}"
+    path: "{{ item }}"
     state: directory
     recurse: yes
     owner: gobgpd
