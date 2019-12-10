@@ -43,5 +43,3 @@ PEERS:
 
 ## LINCENSE
 MIT
-
-## Au
