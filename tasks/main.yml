@@ -40,6 +40,7 @@
 
 - name: Grant the capability to bind to system or well-known ports.
   command: "/sbin/setcap cap_net_bind_service=+ep /usr/bin/gobgpd"
+  changed_when: no
 
 - name: add group for gobgpd
   group:
