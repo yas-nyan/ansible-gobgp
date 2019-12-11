@@ -87,4 +87,4 @@
   systemd:
     enabled: yes
     name: gobgpd
-    state: started
+    state: restarted
