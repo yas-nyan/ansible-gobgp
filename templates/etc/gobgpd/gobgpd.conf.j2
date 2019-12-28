@@ -23,3 +23,27 @@
 {%    endif %}
 {%  endif %}
 {% endfor %}
+
+{% if DYNAMIC_PEERS is defined -%}
+{%   for DYNAMIC_PEER in DYNAMIC_PEERS %}
+[[peer-groups]]
+  [peer-groups.config]
+    peer-group-name = "{{ DYNAMIC_PEER.NAME }}"
+    peer-as = {{ DYNAMIC_PEER.AS_NUMBER }}
+
+{%     for AFI_SAFI in DYNAMIC_PEER.AFI_SAFIS %}
+  [[peer-groups.afi-safis]]
+    [peer-groups.afi-safis.config]
+      afi-safi-name = "{{ AFI_SAFI.NAME }}"
+{%     endfor %}
+
+  [peer-groups.route-reflector.config]
+    route-reflector-client = true
+    route-reflector-cluster-id = "{{ DYNAMIC_PEER.CLUSTER_ID }}"
+
+[[dynamic-neighbors]]
+  [dynamic-neighbors.config]
+    prefix = "{{ DYNAMIC_PEER.CLIENT_RANGE }}"
+    peer-group = "{{ DYNAMIC_PEER.NAME }}"
+{%   endfor %}
+{% endif %}
