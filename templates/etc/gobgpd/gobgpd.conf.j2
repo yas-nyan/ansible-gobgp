@@ -1,6 +1,7 @@
 [global.config]
   as = {{ AS_NUMBER }}
   router-id = "{{ ROUTER_ID }}"
+  port = {{ LISTEN_PORT }}
   
 {% if PEERS is defined -%}
 {%   for PEER in PEERS %}

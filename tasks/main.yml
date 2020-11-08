@@ -10,7 +10,7 @@
 
 - name: fetch GoBGP binary file
   get_url:
-    url: "https://github.com/osrg/gobgp/releases/download/v{{ GOBGP_VERSION }}/gobgp_{{ GOBGP_VERSION }}_linux_amd64.tar.gz"
+    url: "https://github.com/osrg/gobgp/releases/download/v{{ GOBGP_VERSION }}/gobgp_{{ GOBGP_VERSION }}_linux_{{ CPU_ARCH }}.tar.gz"
     dest: "/tmp/gobgp_v{{ GOBGP_VERSION }}.tar"
 
 - name: mkdir tmp dir
