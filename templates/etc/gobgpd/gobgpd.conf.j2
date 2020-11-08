@@ -40,7 +40,7 @@
     peer-as = {{ DYNAMIC_PEER.AS_NUMBER }}
 
 {%  if DYNAMIC_PEER.REMOTE_PORT is defined -%}
-  [peer-group.transport.config]
+  [peer-groups.transport.config]
     remote-port = "{{ DYNAMIC_PEER.REMOTE_PORT }}"
 {%  endif %}
 {%     for AFI_SAFI in DYNAMIC_PEER.AFI_SAFIS %}
