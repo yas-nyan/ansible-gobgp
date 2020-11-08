@@ -7,8 +7,15 @@ GoBGP Pojects: [GitHub](https://github.com/osrg/gobgp)
 ## Requirements
 - Ansible: `2.7` or newer
 - Host OS: 
-  - `Ubuntu 16.04 amd64` or newer
+  - `Ubuntu 16.04` or newer
   - `Debian 8 ` or newer
+- Architecture(see also [Gobgp Supported list](https://github.com/osrg/gobgp/releases))
+  - `amd64`
+  - `386`
+  - `arm64`
+  - `armv6`
+
+
 
 
 ## Role Variables
@@ -16,6 +23,8 @@ GoBGP Pojects: [GitHub](https://github.com/osrg/gobgp)
 GOBGP_VERSION: 2.11.0
 AS_NUMBER: 65000
 ROUTER_ID: "192.0.2.1"
+CPU_ARCH: "amd64"
+LISTEN_PORT: 179
 
 PEERS:
   - ADDRESS: "192.0.2.2"
