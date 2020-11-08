@@ -12,6 +12,10 @@
     peer-as = {{ PEER.AS_NUMBER }}
     local-as = {{ AS_NUMBER }}
 
+{%  if PEER.REMOTE_PORT is defined -%}
+  [neighbors.transport.config]
+    remote-port = "{{ PEER.REMOTE_PORT }}"
+{%  endif %}
 {%    for AFI_SAFI in PEER.AFI_SAFIS %}
   [[neighbors.afi-safis]]
     [neighbors.afi-safis.config]
@@ -35,6 +39,10 @@
     peer-group-name = "{{ DYNAMIC_PEER.NAME }}"
     peer-as = {{ DYNAMIC_PEER.AS_NUMBER }}
 
+{%  if DYNAMIC_PEER.REMOTE_PORT is defined -%}
+  [peer-group.transport.config]
+    remote-port = "{{ DYNAMIC_PEER.REMOTE_PORT }}"
+{%  endif %}
 {%     for AFI_SAFI in DYNAMIC_PEER.AFI_SAFIS %}
   [[peer-groups.afi-safis]]
     [peer-groups.afi-safis.config]

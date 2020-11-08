@@ -21,9 +21,9 @@ GoBGP Pojects: [GitHub](https://github.com/osrg/gobgp)
 ## Role Variables
 ```yml
 GOBGP_VERSION: 2.11.0
+CPU_ARCH: "amd64"
 AS_NUMBER: 65000
 ROUTER_ID: "192.0.2.1"
-CPU_ARCH: "amd64"
 LISTEN_PORT: 179
 
 PEERS:
@@ -31,12 +31,14 @@ PEERS:
     AS_NUMBER: 65001
     ROUTE_REFLECTOR_CLIENT: True
     ROUTE_REFLECTOR_CLUSTER_ID: 192.0.2.1
+    REMOTE_PORT: 179
     AFI_SAFIS:
       - NAME: ipv4-unicast
   - ADDRESS: "192.0.2.3"
     AS_NUMBER: 65001
     ROUTE_REFLECTOR_CLIENT: True
     ROUTE_REFLECTOR_CLUSTER_ID: 192.0.2.1
+    REMOTE_PORT: 10179
     AFI_SAFIS:
       - NAME: ipv4-unicast
   - ADDRESS: "2001:df8::1"
