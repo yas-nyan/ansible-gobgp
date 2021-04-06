@@ -1,1 +1,8 @@
 ---
+- name: register sytemd and start daemon
+  systemd:
+    enabled: yes
+    name: gobgpd
+    state: restarted
+    daemon_reload: yes
+  listen: reload gobgpd
