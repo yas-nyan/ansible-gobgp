@@ -22,35 +22,39 @@ GoBGP Pojects: [GitHub](https://github.com/osrg/gobgp)
 ```yml
 GOBGP_VERSION: 2.11.0
 CPU_ARCH: "amd64"
-AS_NUMBER: 65000
-ROUTER_ID: "192.0.2.1"
-LISTEN_PORT: 179
 
-PEERS:
-  - ADDRESS: "192.0.2.2"
-    AS_NUMBER: 65001
-    ROUTE_REFLECTOR_CLIENT: True
-    ROUTE_REFLECTOR_CLUSTER_ID: 192.0.2.1
-    REMOTE_PORT: 179
-    AFI_SAFIS:
-      - NAME: ipv4-unicast
-  - ADDRESS: "192.0.2.3"
-    AS_NUMBER: 65001
-    ROUTE_REFLECTOR_CLIENT: True
-    ROUTE_REFLECTOR_CLUSTER_ID: 192.0.2.1
-    REMOTE_PORT: 10179
-    AFI_SAFIS:
-      - NAME: ipv4-unicast
-  - ADDRESS: "2001:df8::1"
-    AS_NUMBER: 65002
-    AFI_SAFIS:
-      - NAME: ipv6-unicast
+# Write gobgpd.conf in yaml format
+GOBGP_CONF:
+  global:
+    config:
+      as: 65000
+      router-id: 192.0.2.1
+      port: 179
+  neighbors:
+    - config:
+        neighbor-address: 192.0.2.2
+        peer-as: 65001
+      transport:
+        config:
+          remote-port: "179"
+      add-paths:
+        config:
+          send-max: "8"
+          receive: false
+      afi-safis:
+        - config:
+            afi-safi-name: ipv4-unicast
+      route-reflector:
+        config:
+          route-reflector-client: true
+          route-reflector-cluster-id: 1.1.1.1
 
 ```
 
 `GOBGP_VERSIONS`: see also https://github.com/osrg/gobgp/releases/
 
-
+See below for the format of gobgpd.conf
+https://github.com/osrg/gobgp/blob/master/docs/sources/configuration.md
 
 ## Exaple Playbook
 ```yml

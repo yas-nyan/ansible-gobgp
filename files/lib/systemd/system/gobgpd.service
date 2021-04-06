@@ -5,8 +5,8 @@ After=network.target
 
 [Service]
 Type=notify
-ExecStartPre=/usr/bin/gobgpd -f /etc/gobgpd/gobgpd.conf -d
-ExecStart=/usr/bin/gobgpd -f /etc/gobgpd/gobgpd.conf --sdnotify
+ExecStartPre=/usr/bin/gobgpd -t yaml -f /etc/gobgpd/gobgpd.conf -d
+ExecStart=/usr/bin/gobgpd -t yaml -f /etc/gobgpd/gobgpd.conf --sdnotify
 ExecReload=/usr/bin/gobgpd -r
 StandardOutput=journal
 StandardError=journal

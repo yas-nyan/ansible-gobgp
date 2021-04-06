@@ -1,0 +1,12 @@
+- name: generate config
+  copy:
+    content: "{{ GOBGP_CONF | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
+    dest: /etc/gobgpd/gobgpd.conf
+    validate: "gobgpd -f %s -d"
+
+- name: register sytemd and start daemon
+  systemd:
+    enabled: yes
+    name: gobgpd
+    state: restarted
+    daemon_reload: yes

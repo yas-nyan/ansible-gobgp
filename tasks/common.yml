@@ -1,0 +1,78 @@
+---
+- name: install needed development packages
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    cache_valid_time: 3600
+  loop:
+    - git
+    - wget
+
+- name: fetch GoBGP binary file
+  get_url:
+    url: "https://github.com/osrg/gobgp/releases/download/v{{ GOBGP_VERSION }}/gobgp_{{ GOBGP_VERSION }}_linux_{{ CPU_ARCH }}.tar.gz"
+    dest: "/tmp/gobgp_v{{ GOBGP_VERSION }}.tar"
+
+- name: mkdir tmp dir
+  file:
+    path: /tmp/gobgp/
+    state: directory
+
+- name: unarchive
+  unarchive:
+    src: "/tmp/gobgp_v{{ GOBGP_VERSION }}.tar"
+    dest: /tmp/gobgp/
+    remote_src: yes
+
+- name: move gobgp to install path
+  copy:
+    src: /tmp/gobgp/gobgp
+    dest: /usr/bin/gobgp
+    remote_src: yes
+    mode: "0755"
+
+- name: move gobgpd to install path
+  copy:
+    src: /tmp/gobgp/gobgpd
+    dest: /usr/bin/gobgpd
+    remote_src: yes
+    mode: "0755"
+
+- name: Grant the capability to bind to system or well-known ports.
+  command: "/sbin/setcap cap_net_bind_service=+ep /usr/bin/gobgpd"
+  changed_when: no
+
+- name: add group for gobgpd
+  group:
+    name: gobgpd
+
+- name: add group for gobgpd
+  group:
+    name: gobgpd
+    state: present
+    system: yes
+
+- name: add gobgpd user
+  user:
+    name: gobgpd
+    shell: /bin/bash
+    group: gobgpd
+    home: /var/lib/gobgpd
+
+- name: create directory for execute.
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+    owner: gobgpd
+    group: gobgpd
+  loop:
+    - /var/lib/gobgpd
+    - /var/run/gobgpd
+    - /var/log/gobgpd
+    - /etc/gobgpd
+
+- name: put gobgp.service to systemd directory
+  copy:
+    src: lib/systemd/system/gobgpd.service
+    dest: /lib/systemd/system/gobgpd.service
