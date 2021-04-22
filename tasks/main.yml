@@ -1,12 +1,14 @@
 - name: Check if gobgpd is installed.
-  command: which gobgpd
+  command: gobgpd --version
   register: gobgpd_exits_result
+  failed_when: GOBGP_VERSION not in  gobgpd_exits_result.stdout
   changed_when: false
   ignore_errors: true
 
 - name: Check if gobgp is installed.
-  command: which gobgp
+  command: gobgp --version
   register: gobgp_exits_result
+  failed_when: GOBGP_VERSION not in  gobgpd_exits_result.stdout
   changed_when: false
   ignore_errors: true
 
