@@ -2,16 +2,15 @@
   command: which gobgpd
   register: gobgpd_exits_result
   changed_when: false
-  failed_when: false
+  ignore_errors: true
 
 - name: Check if gobgp is installed.
   command: which gobgp
   register: gobgp_exits_result
   changed_when: false
-  failed_when: false
+  ignore_errors: true
 
 - import_tasks: common.yml
-  #  when: false
   when: (gobgp_exits_result.failed) and (gobgpd_exits_result.failed)
 
 - import_tasks: generate_config.yml
